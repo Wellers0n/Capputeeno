@@ -3,9 +3,7 @@ import Image from 'next/image'
 
 export const Container = styled.main`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: 100vh;
   background-color: #dedede;
   padding-bottom: 64px;
 `
