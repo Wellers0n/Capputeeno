@@ -5,7 +5,7 @@ import client from '../apollo-client'
 import { gql } from '@apollo/client'
 
 const Loading: NextPage = () => {
-  return <div style={{ height: '100vh', width: '100%' }}>loading...</div>
+  return <div>loading...</div>
 }
 
 export default Loading
