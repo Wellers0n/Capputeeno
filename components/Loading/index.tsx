@@ -1,11 +1,8 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import client from '../apollo-client'
-import { gql } from '@apollo/client'
+import { Container } from './styles'
 
 const Loading: NextPage = () => {
-  return <div>loading...</div>
+  return <Container>loading...</Container>
 }
 
 export default Loading

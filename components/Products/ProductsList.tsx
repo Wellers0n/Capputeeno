@@ -21,6 +21,7 @@ type ProductType = {
 
 type Props = {
   page: number
+  category: string
 }
 
 type QueryProps = {
@@ -28,8 +29,8 @@ type QueryProps = {
 }
 
 const QUERY = gql`
-  query AllProducts($page: Int, $perPage: Int) {
-    allProducts(page: $page, perPage: $perPage) {
+  query AllProducts($page: Int, $perPage: Int, $filter: ProductFilter) {
+    allProducts(page: $page, perPage: $perPage, filter: $filter) {
       id
       name
       category
@@ -39,41 +40,42 @@ const QUERY = gql`
   }
 `
 
-const Products: NextPage<Props> = ({ page }) => {
+const Products: NextPage<Props> = ({ page, category }) => {
+  const filter = category ? { category } : undefined
+
   const { data, loading, refetch } = useQuery<QueryProps>(QUERY, {
     variables: {
       page: page,
-      perPage: 10
+      perPage: 10,
+      filter
     },
-    fetchPolicy: 'network-only'
+    // fetchPolicy: 'network-only'
   })
 
   useEffect(() => {
     refetch()
-  }, [page])
+  }, [page, category])
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <ProductContainer>
-      {loading ? (
-        <Loading />
-      ) : (
-        data?.allProducts.map((product, index) => {
-          return (
-            <ProductItem key={index}>
-              <ProductItemImage
-                src={product.image_url}
-                width={256}
-                height={300}
-                alt={product.name}
-              />
-              <ProductItemName>{product.name}</ProductItemName>
-              <ProductItemPrice>
-                R$ {product.price_in_cents / 100}
-              </ProductItemPrice>
-            </ProductItem>
-          )
-        })
-      )}
+      {data?.allProducts.map((product, index) => {
+        return (
+          <ProductItem key={index}>
+            <ProductItemImage
+              src={product.image_url}
+              width={256}
+              height={300}
+              alt={product.name}
+            />
+            <ProductItemName>{product.name}</ProductItemName>
+            <ProductItemPrice>
+              R$ {product.price_in_cents / 100}
+            </ProductItemPrice>
+          </ProductItem>
+        )
+      })}
     </ProductContainer>
   )
 }

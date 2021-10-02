@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: max-content;
+  width: 100%;
 `
 
 export const Box = styled.a<{ active: boolean }>`
