@@ -56,6 +56,7 @@ const Products: NextPage = () => {
                   onClick={() => {
                     setCategory('')
                     setActiveIndex(0)
+                    setPage(0)
                   }}
                 >
                   Todos os produtos
@@ -67,6 +68,7 @@ const Products: NextPage = () => {
                   onClick={() => {
                     setCategory('t-shirts')
                     setActiveIndex(1)
+                    setPage(0)
                   }}
                 >
                   Camisetas
@@ -78,6 +80,7 @@ const Products: NextPage = () => {
                   onClick={() => {
                     setCategory('mugs')
                     setActiveIndex(2)
+                    setPage(0)
                   }}
                 >
                   Canecas
