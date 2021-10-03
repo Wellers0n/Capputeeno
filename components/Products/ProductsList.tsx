@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import { gql, useQuery } from '@apollo/client'
 import {
   ProductItem,
@@ -48,7 +49,7 @@ const Products: NextPage<Props> = ({ page, category }) => {
       page: page,
       perPage: 10,
       filter
-    },
+    }
     // fetchPolicy: 'network-only'
   })
 
@@ -62,18 +63,20 @@ const Products: NextPage<Props> = ({ page, category }) => {
     <ProductContainer>
       {data?.allProducts.map((product, index) => {
         return (
-          <ProductItem key={index}>
-            <ProductItemImage
-              src={product.image_url}
-              width={256}
-              height={300}
-              alt={product.name}
-            />
-            <ProductItemName>{product.name}</ProductItemName>
-            <ProductItemPrice>
-              R$ {product.price_in_cents / 100}
-            </ProductItemPrice>
-          </ProductItem>
+          <Link key={index} href={`/product/${product.id}`} passHref>
+            <ProductItem>
+              <ProductItemImage
+                src={product.image_url}
+                width={256}
+                height={300}
+                alt={product.name}
+              />
+              <ProductItemName>{product.name}</ProductItemName>
+              <ProductItemPrice>
+                R$ {product.price_in_cents / 100}
+              </ProductItemPrice>
+            </ProductItem>
+          </Link>
         )
       })}
     </ProductContainer>
