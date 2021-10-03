@@ -1,20 +1,26 @@
 import type { NextPage } from 'next'
 import { Container, Box } from './styles'
+import { useRouter } from 'next/router'
 
 type Props = {
   pages: number[]
-  page: number
-  setPage: Function
 }
-const Pagination: NextPage<Props> = ({ pages, setPage, page }) => {
+const Pagination: NextPage<Props> = ({ pages }) => {
+  const { query, push } = useRouter()
+  const { page = 1 } = query
+
+  // console.log(`page`, page)
   return (
     <Container>
       {pages.map((_, index) => {
         return (
           <Box
             key={index}
-            active={page === index}
-            onClick={() => setPage(index)}
+            active={Number(page) === index}
+            onClick={() => {
+              // setPage(index)
+              push(`/?page=${index}`)
+            }}
           >
             {index + 1}
           </Box>

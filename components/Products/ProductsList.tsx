@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { gql, useQuery } from '@apollo/client'
 import {
   ProductItem,
@@ -21,7 +22,6 @@ type ProductType = {
 }
 
 type Props = {
-  page: number
   category: string
 }
 
@@ -41,12 +41,14 @@ const QUERY = gql`
   }
 `
 
-const Products: NextPage<Props> = ({ page, category }) => {
+const Products: NextPage<Props> = ({ category }) => {
   const filter = category ? { category } : undefined
+  const { query } = useRouter()
+  const { page = 1 } = query
 
   const { data, loading, refetch } = useQuery<QueryProps>(QUERY, {
     variables: {
-      page: page,
+      page: Number(page),
       perPage: 10,
       filter
     }

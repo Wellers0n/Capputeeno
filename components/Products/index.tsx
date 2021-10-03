@@ -1,14 +1,8 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
 import { gql, useQuery } from '@apollo/client'
-import {
-  Container,
-  Navigation,
-  Categories,
-  CategoryItem,
-  Top,
-  Bottom
-} from './styles'
+import { Container, Navigation, Categories, CategoryItem, Top } from './styles'
+import { useRouter } from 'next/router'
 
 // components
 import Pagination from '..//Pagination'
@@ -27,16 +21,18 @@ const QUERY = gql`
 `
 
 const Products: NextPage = () => {
-  const [page, setPage] = useState(0)
+  const { query } = useRouter()
+  
+  // const [page, setPage] = useState(0)
   const [activeIndex, setActiveIndex] = useState(0)
   const [category, setCategory] = useState('')
-  
-  const filter = category ? { category} : undefined
+
+  const filter = category ? { category } : undefined
 
   const { data } = useQuery<QueryProps>(QUERY, {
     variables: {
       filter
-    },
+    }
     // fetchPolicy: 'network-only'
   })
 
@@ -56,7 +52,6 @@ const Products: NextPage = () => {
                   onClick={() => {
                     setCategory('')
                     setActiveIndex(0)
-                    setPage(0)
                   }}
                 >
                   Todos os produtos
@@ -68,7 +63,6 @@ const Products: NextPage = () => {
                   onClick={() => {
                     setCategory('t-shirts')
                     setActiveIndex(1)
-                    setPage(0)
                   }}
                 >
                   Camisetas
@@ -80,7 +74,6 @@ const Products: NextPage = () => {
                   onClick={() => {
                     setCategory('mugs')
                     setActiveIndex(2)
-                    setPage(0)
                   }}
                 >
                   Canecas
@@ -90,9 +83,9 @@ const Products: NextPage = () => {
           </Categories>
           <div>organization</div>
         </Top>
-        <Pagination pages={pages} page={page} setPage={setPage} />
+        <Pagination pages={pages} />
       </Navigation>
-      <ProductsList category={category} page={page} />
+      <ProductsList category={category} />
     </Container>
   )
 }
