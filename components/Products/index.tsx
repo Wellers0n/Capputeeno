@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { NextPage } from 'next'
 import { gql, useQuery } from '@apollo/client'
 import { Container, Navigation, Categories, CategoryItem, Top } from './styles'
@@ -23,8 +22,9 @@ const QUERY = gql`
 const Products: NextPage = () => {
   const { push, query } = useRouter()
 
-  const { category } = query
-  const filter = category ? { category } : undefined
+  const { category = 'all' } = query
+
+  const filter = category !== 'all' ? { category } : undefined
 
   const { data } = useQuery<QueryProps>(QUERY, {
     variables: {
@@ -45,9 +45,9 @@ const Products: NextPage = () => {
             <ul>
               <li>
                 <CategoryItem
-                  className={`active`}
+                  className={`active-all`}
                   onClick={() => {
-                    push(`/?page=0`)
+                    push(`/?page=0&category=all`)
                   }}
                 >
                   Todos os produtos

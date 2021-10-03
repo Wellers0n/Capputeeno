@@ -39,9 +39,9 @@ const QUERY = gql`
 
 const Products: NextPage = () => {
   const { query } = useRouter()
-  const { page = 1, category = '' } = query
+  const { page = 1, category = 'all' } = query
 
-  const filter = category ? { category } : undefined
+  const filter = category !== 'all' ? { category } : undefined
 
   const { data, loading, refetch } = useQuery<QueryProps>(QUERY, {
     variables: {

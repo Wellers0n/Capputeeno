@@ -24,9 +24,10 @@ export const ProductContainer = styled.div`
   width: 100%;
   max-width: 1440px;
   margin: auto;
+  padding: 30px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  row-gap: 24px;
-  column-gap: 34px;
+  row-gap: 32px;
+  column-gap: 25px;
   border-radius: 4px 4px 0px 0px;
 `
 
@@ -35,6 +36,7 @@ export const ProductItem = styled.div`
   border-radius: 4px 4px 0px 0px;
   background: #ffffff;
   display: flex;
+  margin: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
