@@ -57,7 +57,7 @@ export const ProductItemImage = styled(Image)`
   border-radius: 4px 4px 0px 0px;
 `
 
-export const Categories = styled.div<{ activeIndex: number }>`
+export const Categories = styled.div<{ categoryActive: number }>`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -72,9 +72,9 @@ export const Categories = styled.div<{ activeIndex: number }>`
     }
   }
 
-  ${({ activeIndex }) => {
+  ${({ categoryActive }) => {
     return css`
-      .active-${activeIndex} {
+      .active-${categoryActive} {
         color: #41414d;
         display: block;
         border-bottom: 4px solid #ffa585;
@@ -95,8 +95,6 @@ export const CategoryItem = styled.a`
   display: block;
   border-bottom: 4px solid transparent;
   padding-bottom: 4px;
-
-
 `
 
 export const Top = styled.div`

@@ -21,12 +21,9 @@ const QUERY = gql`
 `
 
 const Products: NextPage = () => {
-  const { query } = useRouter()
-  
-  // const [page, setPage] = useState(0)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [category, setCategory] = useState('')
+  const { push, query } = useRouter()
 
+  const { category } = query
   const filter = category ? { category } : undefined
 
   const { data } = useQuery<QueryProps>(QUERY, {
@@ -44,14 +41,13 @@ const Products: NextPage = () => {
     <Container>
       <Navigation>
         <Top>
-          <Categories activeIndex={activeIndex}>
+          <Categories categoryActive={category}>
             <ul>
               <li>
                 <CategoryItem
-                  className={`active-0`}
+                  className={`active`}
                   onClick={() => {
-                    setCategory('')
-                    setActiveIndex(0)
+                    push(`/?page=0`)
                   }}
                 >
                   Todos os produtos
@@ -59,10 +55,9 @@ const Products: NextPage = () => {
               </li>
               <li>
                 <CategoryItem
-                  className={`active-1`}
+                  className={`active-t-shirts`}
                   onClick={() => {
-                    setCategory('t-shirts')
-                    setActiveIndex(1)
+                    push(`/?page=0&category=t-shirts`)
                   }}
                 >
                   Camisetas
@@ -70,10 +65,9 @@ const Products: NextPage = () => {
               </li>
               <li>
                 <CategoryItem
-                  className={`active-2`}
+                  className={`active-mugs`}
                   onClick={() => {
-                    setCategory('mugs')
-                    setActiveIndex(2)
+                    push(`/?page=0&category=mugs`)
                   }}
                 >
                   Canecas
@@ -85,7 +79,7 @@ const Products: NextPage = () => {
         </Top>
         <Pagination pages={pages} />
       </Navigation>
-      <ProductsList category={category} />
+      <ProductsList />
     </Container>
   )
 }

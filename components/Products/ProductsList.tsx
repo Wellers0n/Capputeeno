@@ -21,10 +21,6 @@ type ProductType = {
   price_in_cents: number
 }
 
-type Props = {
-  category: string
-}
-
 type QueryProps = {
   allProducts: ProductType[]
 }
@@ -41,10 +37,11 @@ const QUERY = gql`
   }
 `
 
-const Products: NextPage<Props> = ({ category }) => {
-  const filter = category ? { category } : undefined
+const Products: NextPage = () => {
   const { query } = useRouter()
-  const { page = 1 } = query
+  const { page = 1, category = '' } = query
+
+  const filter = category ? { category } : undefined
 
   const { data, loading, refetch } = useQuery<QueryProps>(QUERY, {
     variables: {

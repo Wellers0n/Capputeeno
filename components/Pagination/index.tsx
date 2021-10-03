@@ -7,7 +7,7 @@ type Props = {
 }
 const Pagination: NextPage<Props> = ({ pages }) => {
   const { query, push } = useRouter()
-  const { page = 1 } = query
+  const { page = 0, category } = query
 
   // console.log(`page`, page)
   return (
@@ -18,8 +18,9 @@ const Pagination: NextPage<Props> = ({ pages }) => {
             key={index}
             active={Number(page) === index}
             onClick={() => {
-              // setPage(index)
-              push(`/?page=${index}`)
+              category
+                ? push(`/?page=${index}&category=${category}`)
+                : push(`/?page=${index}`)
             }}
           >
             {index + 1}
