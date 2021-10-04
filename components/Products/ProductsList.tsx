@@ -39,7 +39,7 @@ const QUERY = gql`
 
 const Products: NextPage = () => {
   const { query } = useRouter()
-  const { page = 1, category = 'all' } = query
+  const { page = 0, category = 'all' } = query
 
   const filter = category !== 'all' ? { category } : undefined
 

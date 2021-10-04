@@ -59,7 +59,7 @@ export const ProductItemImage = styled(Image)`
   border-radius: 4px 4px 0px 0px;
 `
 
-export const Categories = styled.div<{ categoryActive: number }>`
+export const Categories = styled.div<{ categoryActive: string }>`
   display: flex;
   justify-content: space-evenly;
   align-items: center;

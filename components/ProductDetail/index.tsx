@@ -16,7 +16,7 @@ import {
   Button
 } from './styles'
 import Loading from '../Loading'
-
+import { useCart } from '../../context/cart-context'
 // next
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -49,15 +49,13 @@ type QueryProps = {
 
 const ProductDetail: NextPage = () => {
   const { back, query } = useRouter()
-
+  const { dispatch } = useCart()
   const { data, loading } = useQuery<QueryProps>(QUERY, {
     variables: {
       id: query.id
     }
     // fetchPolicy: 'network-only'
   })
-
-  console.log(data)
 
   return loading ? (
     <Loading />
@@ -94,7 +92,12 @@ const ProductDetail: NextPage = () => {
             <Description>{data?.Product?.description}</Description>
           </div>
           <div>
-            <Button>
+            <Button
+              onClick={() => {
+                
+                dispatch({ payload: { data }, type: 'increment' })
+              }}
+            >
               <Image
                 src={require('../../public/shopping-bag.png')}
                 width={24}
